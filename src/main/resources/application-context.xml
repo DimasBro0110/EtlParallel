@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="schema" value="bank_service"/>
+        <property name="username" value="dimas"/>
+        <property name="password" value="dimas"/>
+        <property name="url"
+                  value="jdbc:mysql://localhost:3306/bank_service?verifyServerCertificate=false&amp;useSSL=false&amp;requireSSL=false"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="packagesToScan" value="models"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="show_sql">false</prop>
+                <prop key="format_sql">true</prop>
+                <prop key="hbm2ddl.auto">update</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.c3p0.min_size">20</prop>
+                <prop key="hibernate.c3p0.max_size">300</prop>
+                <prop key="hibernate.c3p0.max_statements">50</prop>
+                <prop key="hibernate.c3p0.idle_test_period">2000</prop>
+            </props>
+        </property>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="org/springframework/batch/core/schema-drop-mysql.sql" />
+        <jdbc:script location="org/springframework/batch/core/schema-mysql.sql" />
+    </jdbc:initialize-database>
+
+    <bean id="dimCustomer" class="models.DimCustomer" scope="prototype"/>
+    <bean id="atomicLongDimCustomerKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factDlCards" class="models.FactDLCards" scope="prototype"/>
+    <bean id="atomicLongFactDLCardsKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factSalaryProject" class="models.FactSalaryProject" scope="prototype"/>
+    <bean id="atomicLongFactSalaryProject" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factAccountOperCDW" class="models.FactAccount_Oper_CDW"/>
+    <bean id="atomicLongFactAccountOperCdwKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factIbLoginHistory" class="models.FactIBLoginHistory"/>
+    <bean id="atomicLongFactIbLoginHistoryKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factActivity" class="models.FactActivity"/>
+    <bean id="atomicLongFactActivity" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="dimPersonalCreditRequest" class="models.DimPersonalCreditRequest"/>
+    <bean id="atomicLongDimPersonalCredirRequestKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factTransactions_CDW" class="models.FactTransactions_CDW"/>
+    <bean id="atomicLongFactTransactions_CDWKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factDeals" class="models.FactDeals"/>
+    <bean id="atomicFactDealsKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <bean id="factCaseProductRequest" class="models.FactCaseProductRequest"/>
+    <bean id="atomicLongFactCaseProductRequestKey" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" value="1"/>
+    </bean>
+
+    <import resource="job-flow-config.xml"/>
+
+</beans>

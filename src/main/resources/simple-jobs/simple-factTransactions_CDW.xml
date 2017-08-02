@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+    <bean id="batchFactTransactionsCDWReaderCsv"
+          class="org.springframework.batch.item.file.FlatFileItemReader"
+          scope="step">
+        <!--<property name="linesToSkip" value="1"/>-->
+        <!--<property name="encoding" value="cp1251"/>-->
+        <property name="resource" value="#{stepExecutionContext[fileResource]}"/>
+        <property name="lineMapper">
+            <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
+                <property name="lineTokenizer">
+                    <bean class="org.springframework.batch.item.file.transform.DelimitedLineTokenizer">
+                        <property name="delimiter" value=";"/>
+                        <property name="names"
+                                  value="factTransactionId,factTransactionDate,factTransactionAccNoDebit,
+                                  factTransactionCustomerKeyDebit,factTransactionAccNoCredit,factTransactionCustomerKeyCredit,
+                                  factTransactionAmountEq,factTransactionCode,factTransactionCard,factTransactionIsIbBankOperation,
+                                  factTransactionIsOwnTerminal,factTransactionMcc,factTransactionPayAmt,
+                                  factTransactionCurrencyName,factTransactionPaymentSystem,factTransactionTerminalCode,
+                                  factTransactionAddress,factTransactionOltpCode,factTransactionDeviceType,
+                                  factTransactionTransDetail,factTransactionTransType,factTransactionName,
+                                  factTransactionOpType"
+                        />
+                    </bean>
+                </property>
+                <property name="fieldSetMapper">
+                    <bean class="org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper">
+                        <property name="prototypeBeanName" value="factTransactionsCDW"/>
+                    </bean>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="factTransactionsCDWWriter" class="writer.FactTransactions_CDWWriter" scope="step">
+        <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicLong" ref="atomicLongFactTransactions_CDWKey"/>
+    </bean>
+
+</beans>
