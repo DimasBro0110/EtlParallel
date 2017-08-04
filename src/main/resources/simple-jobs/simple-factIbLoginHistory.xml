@@ -32,6 +32,7 @@
     <bean id="factIbLoginHistoryWriter" class="writer.FactIbLoginHistoryWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicLongFactIbLoginHistoryKey" ref="factIbLoginHistoryIdGenerator"/>
     </bean>
 
 </beans>

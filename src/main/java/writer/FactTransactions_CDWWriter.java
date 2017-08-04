@@ -18,7 +18,7 @@ public class FactTransactions_CDWWriter implements ItemWriter<FactTransactions_C
 
     private SessionFactory sessionFactory;
     private String threadName;
-    private AtomicLong atomicLong;
+    private AtomicLong atomicLongFactTransactionsCDW;
     private static Logger LOGGER = Logger.getLogger(FactTransactions_CDWWriter.class.getName());
 
     @Override
@@ -26,7 +26,7 @@ public class FactTransactions_CDWWriter implements ItemWriter<FactTransactions_C
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         list.forEach(entity -> {
-            entity.setEntityId(atomicLong.getAndIncrement());
+            entity.setEntityId(atomicLongFactTransactionsCDW.getAndIncrement());
             session.save(entity);
         });
         session.flush();
@@ -45,11 +45,11 @@ public class FactTransactions_CDWWriter implements ItemWriter<FactTransactions_C
         this.threadName = threadName;
     }
 
-    public AtomicLong getAtomicLong() {
-        return atomicLong;
+    public AtomicLong getAtomicLongFactTransactionsCDW() {
+        return atomicLongFactTransactionsCDW;
     }
 
-    public void setAtomicLong(AtomicLong atomicLong) {
-        this.atomicLong = atomicLong;
+    public void setAtomicLongFactTransactionsCDW(AtomicLong atomicLongFactTransactionsCDW) {
+        this.atomicLongFactTransactionsCDW = atomicLongFactTransactionsCDW;
     }
 }

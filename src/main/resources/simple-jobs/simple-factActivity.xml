@@ -33,6 +33,7 @@
     <bean id="factActivityWriter" class="writer.FactActivityWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicLongFactActivityKey" ref="factActivityIdGenerator"/>
     </bean>
 
 </beans>

@@ -6,8 +6,8 @@
     <import resource="../simple-jobs/simple-factSalaryProject.xml"/>
 
     <bean id="partitionerFactSalaryProjectCFTByLines" class="partitioner.PartitionerByLines">
-        <property name="batchSize" value="100000"/>
-        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/Fact_SalaryProject_CFT.csv"/>
+        <property name="batchSize" value="1000000"/>
+        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/step_1/Fact_SalaryProject_CFT.csv"/>
         <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
     </bean>
 

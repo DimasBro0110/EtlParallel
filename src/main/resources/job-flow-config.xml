@@ -27,41 +27,41 @@
     <batch:job id="flowJob" job-repository="jobRepository">
 
 
-        <batch:step id="step_1">
+        <batch:step id="step_1" next="step_2">
             <batch:job ref="masterDimPersonalCreditRequestJob"/>
         </batch:step>
 
-        <!--<batch:step id="step_2" next="step_3">-->
-            <!--<batch:job ref="masterFactActivityJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_2" next="step_3">
+            <batch:job ref="masterFactActivityJob"/>
+        </batch:step>
 
-        <!--<batch:step id="step_3" next="step_4">-->
-            <!--<batch:job ref="masterFactCaseProductRequestJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_3" next="step_4">
+            <batch:job ref="masterFactCaseProductRequestJob"/>
+        </batch:step>
 
-        <!--<batch:step id="step_4" next="step_5">-->
-            <!--<batch:job ref="masterFactDealsJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_4" next="step_5">
+            <batch:job ref="masterFactDealsJob"/>
+        </batch:step>
 
-        <!--<batch:step id="step_5" next="step_6">-->
-            <!--<batch:job ref="masterFactDlCardsJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_5" next="step_6">
+            <batch:job ref="masterFactDlCardsJob"/>
+        </batch:step>
 
-        <!--<batch:step id="step_6" next="step_7">-->
-            <!--<batch:job ref="masterFactIbLoginHistoryJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_6" next="step_7">
+            <batch:job ref="masterFactIbLoginHistoryJob"/>
+        </batch:step>
 
-        <!--<batch:step id="step_7" next="step_8">-->
-            <!--<batch:job ref="masterFactTransactions_CDWJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_7" next="step_8">
+            <batch:job ref="masterFactTransactions_CDWJob"/>
+        </batch:step>
 
-        <!--<batch:step id="step_8" next="step_9">-->
-            <!--<batch:job ref="masterFactSalaryProjectCFTJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_8" next="step_9">
+            <batch:job ref="masterFactSalaryProjectCFTJob"/>
+        </batch:step>
 
-        <!--<batch:step id="step_9">-->
-            <!--<batch:job ref="masterFactAccountOperCDWJob"/>-->
-        <!--</batch:step>-->
+        <batch:step id="step_9">
+            <batch:job ref="masterFactAccountOperCDWJob"/>
+        </batch:step>
 
     </batch:job>
 

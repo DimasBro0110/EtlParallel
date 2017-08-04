@@ -31,6 +31,7 @@
     <bean id="factCaseProductRequestWriter" class="writer.FactCaseProductRequestWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicLongFactCaseProductRequestKey" ref="factCaseProductRequestIdGenerator"/>
     </bean>
 
 </beans>

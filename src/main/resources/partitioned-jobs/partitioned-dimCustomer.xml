@@ -7,7 +7,7 @@
 
     <bean id="partitionerDimCustomerByLines" class="partitioner.PartitionerByLines">
         <property name="batchSize" value="100000"/>
-        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/DimCustomer.csv"/>
+        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/step_1/DimCustomer.csv"/>
         <!--<property name="pathToFile" value="/Users/DmitriyBrosalin/TestFiles/work_data/DimCustomer.csv"/>-->
         <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
         <!--<property name="tempDir" value="/Users/DmitriyBrosalin/TestFiles/work_data/temp_dir"/>-->

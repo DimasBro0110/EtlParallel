@@ -7,26 +7,26 @@
 
     <bean id="partitionerFactCaseProductRequestByLines" class="partitioner.PartitionerByLines">
         <property name="batchSize" value="100000"/>
-        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/FactCaseProductRequest.csv"/>
+        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/step_1/FactCaseProductRequest.csv"/>
         <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
     </bean>
 
     <bean id="taskExecutorFactCaseProductRequest" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
         <property name="maxPoolSize" value="10"/>
-        <property name="corePoolSize" value="9"/>
+        <property name="corePoolSize" value="8"/>
         <property name="queueCapacity" value="10"/>
     </bean>
 
     <batch:job id="masterFactCaseProductRequestJob" job-repository="jobRepository">
         <batch:step id="masterFactCaseProductRequestStep">
             <batch:partition step="slaveFactCaseProductRequestStep" partitioner="partitionerFactCaseProductRequestByLines">
-                <batch:handler task-executor="taskExecutorFactCaseProductRequest" grid-size="9"/>
+                <batch:handler task-executor="taskExecutorFactCaseProductRequest" grid-size="8"/>
             </batch:partition>
         </batch:step>
     </batch:job>
 
     <batch:step id="slaveFactCaseProductRequestStep">
-        <batch:tasklet throttle-limit="9">
+        <batch:tasklet throttle-limit="8">
             <batch:chunk reader="batchFactCaseProductRequestCsv"
                          writer="factCaseProductRequestWriter"
                          commit-interval="100">

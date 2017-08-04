@@ -34,6 +34,7 @@
     <bean id="factDealsWriter" class="writer.FactDealsWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicLongFactDealsWriterKey" ref="factDealsIdGenerator"/>
     </bean>
 
 </beans>

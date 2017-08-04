@@ -37,6 +37,7 @@
           class="writer.FactDLCardsWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicLongFactDLCardsWriter" ref="factDlCardsIdGenerator"/>
     </bean>
 
 </beans>

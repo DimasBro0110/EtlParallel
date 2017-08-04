@@ -7,12 +7,12 @@
 
     <bean id="partitionerFactActivityByLines" class="partitioner.PartitionerByLines">
         <property name="batchSize" value="100000"/>
-        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/FactActivity.csv"/>
+        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/step_1/FactActivity.csv"/>
         <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
     </bean>
 
     <bean id="taskExecutorFactActivity" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="maxPoolSize" value="20"/>
+        <property name="maxPoolSize" value="49"/>
         <property name="corePoolSize" value="10"/>
         <property name="queueCapacity" value="50"/>
     </bean>
@@ -28,7 +28,6 @@
     <batch:step id="slaveFactActivityStep">
         <batch:tasklet throttle-limit="10">
             <batch:chunk reader="batchFactActivityReaderCsv"
-                         processor=""
                          writer="factActivityWriter"
                          commit-interval="150">
                 <batch:skip-policy>

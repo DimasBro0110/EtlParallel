@@ -37,6 +37,7 @@
     <bean id="dimCustomerWriter" class="writer.DimCustomerWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicDimCustomerKey" ref="dimCustomerIdGenerator"/>
     </bean>
 
 </beans>

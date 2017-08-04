@@ -7,12 +7,12 @@
 
     <bean id="partitionerFactAccountOperCdwByLines" class="partitioner.PartitionerByLines">
         <property name="batchSize" value="1000000"/>
-        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/FactAccount_Oper_CDW.csv"/>
+        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/step_1/FactAccount_Oper_CDW.csv"/>
         <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
     </bean>
 
     <bean id="taskExecutorFactAccountOperCdw" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="maxPoolSize" value="30"/>
+        <property name="maxPoolSize" value="78"/>
         <property name="corePoolSize" value="10"/>
         <property name="queueCapacity" value="80"/>
     </bean>

@@ -6,18 +6,17 @@
     <import resource="../simple-jobs/simple-factDeals.xml"/>
 
     <bean id="partitionerFactDealsByLines" class="partitioner.PartitionerByLines">
-        <property name="batchSize" value="100000"/>
-        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/FactDeals.csv"/>
+        <property name="batchSize" value="1000000"/>
+        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/step_1/FactDeals.csv"/>
         <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
     </bean>
 
     <bean id="taskExecutorFactDeals"
           class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"
           destroy-method="shutdown">
-        <property name="maxPoolSize" value="80"/>
+        <property name="maxPoolSize" value="12"/>
         <property name="corePoolSize" value="10"/>
-        <property name="queueCapacity" value="85"/>
-        <property name="waitForTasksToCompleteOnShutdown" value="true"/>
+        <property name="queueCapacity" value="13"/>
     </bean>
 
     <bean id="executorFactDeals" class="org.springframework.core.task.SimpleAsyncTaskExecutor">

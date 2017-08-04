@@ -274,14 +274,4 @@ public class DimPersonalCreditRequest implements Serializable{
     public void setEntityId(long entityId) {
         this.entityId = entityId;
     }
-
-
-//    public EmbeddedDimPersonalCreditKey getEntityKey() {
-//        return entityKey;
-//    }
-//
-//    public void setEntityKey(EmbeddedDimPersonalCreditKey entityKey) {
-//        this.entityKey = entityKey;
-//    }
-
 }

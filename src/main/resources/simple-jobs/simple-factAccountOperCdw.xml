@@ -35,6 +35,7 @@
     <bean id="factAccountOperCdwWriter" class="writer.FactAccount_Oper_CDWWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
+        <property name="atomicLongFactAccountOperCdwKey" ref="factAccountOperCDWIdGenerator"/>
     </bean>
 
 </beans>
