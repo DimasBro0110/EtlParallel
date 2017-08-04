@@ -4,10 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
 
     <bean id="batchFactDealsCsv"
-          class="org.springframework.batch.item.file.FlatFileItemReader"
-          scope="step">
-        <property name="linesToSkip" value="1"/>
-        <property name="encoding" value="cp1251"/>
+          class="org.springframework.batch.item.file.FlatFileItemReader" scope="step">
+        <!--<property name="linesToSkip" value="1"/>-->
+        <!--<property name="encoding" value="cp1251"/>-->
         <property name="resource" value="#{stepExecutionContext[fileResource]}"/>
         <property name="lineMapper">
             <bean class="org.springframework.batch.item.file.mapping.DefaultLineMapper">
@@ -35,7 +34,6 @@
     <bean id="factDealsWriter" class="writer.FactDealsWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
-        <property name="atomicLongFactDealsWriterKey" ref="atomicFactDealsKey"/>
     </bean>
 
 </beans>

@@ -4,11 +4,17 @@ package models;
  * Created by dmitriybrosalin on 02.08.17.
  */
 
+
+import org.hibernate.annotations.*;
+
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "DIM_PERSONAL_CREDIT_REQUEST")
-public class DimPersonalCreditRequest {
+public class DimPersonalCreditRequest implements Serializable{
 
     @Id
     private long entityId;
@@ -16,8 +22,10 @@ public class DimPersonalCreditRequest {
     @Column(name = "PERSONAL_CREDIT_REQUEST_KEY")
     private String personalCreditRequestKey;
 
+
     @Column(name = "PERSONAL_CUSTOMER_KEY")
     private String personalCustomerKey;
+
 
     @Column(name = "PERSONAL_NUMBER_OF_DEPENDENTS")
     private String personalNumberOfDependents;
@@ -44,7 +52,7 @@ public class DimPersonalCreditRequest {
     private String personalOtherBankCards;
 
     @Column(name = "PERSONAL_SCORING_POINT")
-    private String personalScoringPoint;
+    private String personalScoringPoint = "fuckup";
 
     @Column(name = "PERSONAL_IS_CAR_OWNER")
     private String personalIsCarOwner;
@@ -52,14 +60,17 @@ public class DimPersonalCreditRequest {
     @Column(name = "PERSONAL_IS_REALTY_OWNER")
     private String personalIsRealtyOwner;
 
+
     @Column(name = "PERSONAL_START_DATE")
     private String personalStartDate;
+
 
     @Column(name = "PERSONAL_END_DATE")
     private String personalEndDate;
 
+
     @Column(name = "PERSONAL_PRODUCT_REQUEST_KEY")
-    private String personalProductRequestKey;
+    private String personalProductRequestKey = "fuckup";
 
     @Column(name = "PERSONAL_ANNUITY")
     private String personalAnnuity;
@@ -76,6 +87,7 @@ public class DimPersonalCreditRequest {
     @Column(name = "PERSONAL_EMPLOYER_JOB_STATUS")
     private String personalEmployerJobStatus;
 
+    @Lob
     @Column(name = "PERSONAL_MCS_EMPLOYER_NAME")
     private String personalMcsEmployerName;
 
@@ -262,4 +274,14 @@ public class DimPersonalCreditRequest {
     public void setEntityId(long entityId) {
         this.entityId = entityId;
     }
+
+
+//    public EmbeddedDimPersonalCreditKey getEntityKey() {
+//        return entityKey;
+//    }
+//
+//    public void setEntityKey(EmbeddedDimPersonalCreditKey entityKey) {
+//        this.entityKey = entityKey;
+//    }
+
 }

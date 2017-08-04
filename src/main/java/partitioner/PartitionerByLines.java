@@ -11,6 +11,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -131,4 +133,5 @@ public class PartitionerByLines implements Partitioner {
     public void setPathToFile(String pathToFile){
         this.pathToFile = pathToFile;
     }
+
 }

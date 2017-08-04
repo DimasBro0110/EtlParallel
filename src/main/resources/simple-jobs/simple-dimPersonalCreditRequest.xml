@@ -35,11 +35,19 @@
         </property>
     </bean>
 
+    <bean id="dimPersonalCreditRequestProcessor" class="processor.DimPersonalCreditRequestProcessor" scope="step">
+    </bean>
+
     <bean id="dimPersonalCreditRequestWriter"
           class="writer.DimPersonalCreditRequestWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
-        <property name="atomicLongDimPersonalCreditRequestKey" ref="atomicLongDimPersonalCredirRequestKey"/>
+        <property name="idGenerator" ref="dimPersonalIdGenerator"/>
+    </bean>
+
+
+    <bean id="dimPersonalCreditRequestJDBC" class="org.springframework.batch.item.database.HibernateItemWriter">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
 </beans>

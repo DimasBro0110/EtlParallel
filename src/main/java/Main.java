@@ -25,6 +25,7 @@ public class Main {
 
             JobExecution jobExecutionParallel = jobProdLauncher.run(prodJobParallel, new JobParameters());
             System.out.println("Exit status of Parallel : " + jobExecutionParallel.getStatus());
+
         }catch (Exception ex){
 
         }

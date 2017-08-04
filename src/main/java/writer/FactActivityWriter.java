@@ -29,11 +29,18 @@ public class FactActivityWriter implements ItemWriter<FactActivity>{
     public void write(List<? extends FactActivity> list) throws Exception {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        list.forEach(entity -> entity.setEntityId(atomicLongFactActivityKey.getAndIncrement()));
+        list.forEach(entity -> {
+            entity.setFactActivitySubject("");
+            entity.setFactActivitySource("");
+            entity.setFactActivityDescription("");
+            entity.setEntityId(atomicLongFactActivityKey.getAndIncrement());
+            session.save(entity);
+        });
         session.flush();
         session.clear();
         transaction.commit();
         session.close();
+//        sessionFactory.close();
         LOGGER.log(Level.INFO, this.threadName + " " + "[ BATCH WITH SIZE OF "
                 + list.size() + " SENT TO TABLE FactActivity]");
     }

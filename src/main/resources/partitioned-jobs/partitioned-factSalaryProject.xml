@@ -12,13 +12,13 @@
     </bean>
 
     <bean id="taskExecutorFactSalaryProject" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="maxPoolSize" value="20"/>
+        <property name="maxPoolSize" value="15"/>
         <property name="corePoolSize" value="10"/>
-        <property name="queueCapacity" value="25"/>
+        <property name="queueCapacity" value="16"/>
     </bean>
 
-    <batch:job id="masterFactSalaryProjectCFTJob">
-        <batch:step id="masterStep">
+    <batch:job id="masterFactSalaryProjectCFTJob" job-repository="jobRepository">
+        <batch:step id="masterFactSalaryProjectCFTStep">
             <batch:partition step="slaveFactSalaryProjectCFTStep" partitioner="partitionerFactSalaryProjectCFTByLines">
                 <batch:handler grid-size="10" task-executor="taskExecutorFactSalaryProject"/>
             </batch:partition>
@@ -26,7 +26,7 @@
     </batch:job>
 
     <batch:step id="slaveFactSalaryProjectCFTStep">
-        <batch:tasklet>
+        <batch:tasklet throttle-limit="10">
             <batch:chunk reader="batchFactSalaryProjectCsv"
                          writer="factSalaryProjectWriter"
                          commit-interval="100">

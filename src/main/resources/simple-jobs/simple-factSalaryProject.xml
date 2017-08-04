@@ -35,7 +35,6 @@
           class="writer.FactSalaryProjectWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
-        <property name="atomicLongFactSalaryProjectKey" ref="atomicLongFactSalaryProject"/>
     </bean>
 
 </beans>

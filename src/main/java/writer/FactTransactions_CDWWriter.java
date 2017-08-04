@@ -27,11 +27,13 @@ public class FactTransactions_CDWWriter implements ItemWriter<FactTransactions_C
         Transaction transaction = session.beginTransaction();
         list.forEach(entity -> {
             entity.setEntityId(atomicLong.getAndIncrement());
+            session.save(entity);
         });
         session.flush();
         session.clear();
         transaction.commit();
         session.close();
+//        sessionFactory.close();
         LOGGER.log(Level.INFO, threadName + " " + "BATCH WITH SIZE OF " + list.size() + " SENT TO TABLE FactTransactions_CDWWriter");
     }
 

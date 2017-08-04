@@ -37,6 +37,7 @@ public class DimCustomerWriter implements ItemWriter<DimCustomer> {
         session.clear();
         transaction.commit();
         session.close();
+//        sessionFactory.close();
         LOGGER.log(Level.INFO, threadName + " " + "BATCH WITH SIZE OF " + list.size() + " SENT TO TABLE DIM_CUSTOMER");
     }
 

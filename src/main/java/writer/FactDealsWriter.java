@@ -30,11 +30,15 @@ public class FactDealsWriter implements ItemWriter<FactDeals> {
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        list.forEach(entity -> entity.setEntityId(atomicLongFactDealsWriterKey.getAndIncrement()));
+        list.forEach(entity -> {
+            entity.setEntityId(atomicLongFactDealsWriterKey.getAndIncrement());
+            session.save(entity);
+        });
         session.flush();
         session.clear();
         transaction.commit();
         session.close();
+//        sessionFactory.close();
         LOGGER.log(Level.INFO, threadName + " "
                 + "BATCH WITH SIZE OF " + list.size() + " SENT TO TABLE FactDealsWriter");
 

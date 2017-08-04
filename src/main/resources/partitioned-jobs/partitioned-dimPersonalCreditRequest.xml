@@ -6,33 +6,34 @@
     <import resource="../simple-jobs/simple-dimPersonalCreditRequest.xml"/>
 
     <bean id="partitionerDimPersonalCreditRequestByLines" class="partitioner.PartitionerByLines">
-        <property name="batchSize" value="100000"/>
-        <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/DimPersonalCreditRequest.csv"/>
-        <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
+        <property name="batchSize" value="50000"/>
+        <!--<property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/DimPersonalCreditRequest.csv"/>-->
+        <property name="pathToFile" value="/Users/DmitriyBrosalin/TestFiles/work_data/DimPersonalCreditRequest.csv"/>
+        <property name="tempDir" value="/Users/DmitriyBrosalin/TestFiles/work_data/temp_dir"/>
     </bean>
 
     <bean id="taskExecutorDimPersonalCreditRequest" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-        <property name="maxPoolSize" value="20"/>
-        <property name="corePoolSize" value="10"/>
-        <property name="queueCapacity" value="25"/>
+        <property name="maxPoolSize" value="7"/>
+        <property name="corePoolSize" value="5"/>
+        <property name="queueCapacity" value="7"/>
     </bean>
 
-    <batch:job id="masterDimPersonalCreditRequestJob">
-        <batch:step id="masterStep">
+    <batch:job id="masterDimPersonalCreditRequestJob" job-repository="jobRepository">
+        <batch:step id="masterDimPersonalCreditRequestStep">
             <batch:partition step="slaveDimPersonalCreditRequestStep" partitioner="partitionerDimPersonalCreditRequestByLines">
-                <batch:handler task-executor="taskExecutorDimPersonalCreditRequest"/>
+                <batch:handler task-executor="taskExecutorDimPersonalCreditRequest" grid-size="5"/>
             </batch:partition>
         </batch:step>
     </batch:job>
 
     <batch:step id="slaveDimPersonalCreditRequestStep">
-        <batch:tasklet throttle-limit="10">
+        <batch:tasklet throttle-limit="5">
             <batch:chunk reader="batchDimPersonalCreditRequestCsv"
                          writer="dimPersonalCreditRequestWriter"
                          commit-interval="100">
-                <batch:skip-policy>
-                    <bean class="org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy"/>
-                </batch:skip-policy>
+                <!--<batch:skip-policy>-->
+                    <!--<bean class="org.springframework.batch.core.step.skip.AlwaysSkipItemSkipPolicy"/>-->
+                <!--</batch:skip-policy>-->
             </batch:chunk>
         </batch:tasklet>
     </batch:step>

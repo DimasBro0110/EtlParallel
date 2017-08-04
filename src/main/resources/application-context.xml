@@ -12,7 +12,7 @@
                   value="jdbc:mysql://localhost:3306/bank_service?verifyServerCertificate=false&amp;useSSL=false&amp;requireSSL=false"/>
     </bean>
 
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" scope="singleton">
         <property name="packagesToScan" value="models"/>
         <property name="hibernateProperties">
             <props>
@@ -22,13 +22,16 @@
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">create</prop>
                 <prop key="hibernate.c3p0.min_size">20</prop>
-                <prop key="hibernate.c3p0.max_size">300</prop>
-                <prop key="hibernate.c3p0.max_statements">50</prop>
-                <prop key="hibernate.c3p0.idle_test_period">2000</prop>
+                <prop key="hibernate.c3p0.max_size">800</prop>
+                <prop key="hibernate.c3p0.max_statements">150</prop>
+                <prop key="hibernate.c3p0.idle_test_period">60</prop>
+                <prop key="hibernate.c3p0.timeout">1800</prop>
+                <prop key="hibernate.c3p0.acquire_increment">1</prop>
             </props>
         </property>
         <property name="dataSource" ref="dataSource"/>
     </bean>
+
 
     <bean id="transactionManager"
           class="org.springframework.orm.hibernate5.HibernateTransactionManager">
@@ -41,53 +44,53 @@
     </jdbc:initialize-database>
 
     <bean id="dimCustomer" class="models.DimCustomer" scope="prototype"/>
-    <bean id="atomicLongDimCustomerKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="dimCustomerIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
     <bean id="factDlCards" class="models.FactDLCards" scope="prototype"/>
-    <bean id="atomicLongFactDLCardsKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factDlCardsIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
     <bean id="factSalaryProject" class="models.FactSalaryProject" scope="prototype"/>
-    <bean id="atomicLongFactSalaryProject" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factSalaryProjectIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
-    <bean id="factAccountOperCDW" class="models.FactAccount_Oper_CDW"/>
-    <bean id="atomicLongFactAccountOperCdwKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factAccountOperCDW" class="models.FactAccount_Oper_CDW" scope="prototype"/>
+    <bean id="factAccountOperCDWIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
-    <bean id="factIbLoginHistory" class="models.FactIBLoginHistory"/>
-    <bean id="atomicLongFactIbLoginHistoryKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factIbLoginHistory" class="models.FactIBLoginHistory" scope="prototype"/>
+    <bean id="factIbLoginHistoryIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
-    <bean id="factActivity" class="models.FactActivity"/>
-    <bean id="atomicLongFactActivity" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factActivity" class="models.FactActivity" scope="prototype"/>
+    <bean id="factActivityIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
-    <bean id="dimPersonalCreditRequest" class="models.DimPersonalCreditRequest"/>
-    <bean id="atomicLongDimPersonalCredirRequestKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="dimPersonalCreditRequest" class="models.DimPersonalCreditRequest" scope="prototype"/>
+    <bean id="dimPersonalIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
-    <bean id="factTransactions_CDW" class="models.FactTransactions_CDW"/>
-    <bean id="atomicLongFactTransactions_CDWKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factTransactions_CDW" class="models.FactTransactions_CDW" scope="prototype"/>
+    <bean id="factTransactionsCDWIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
-    <bean id="factDeals" class="models.FactDeals"/>
-    <bean id="atomicFactDealsKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factDeals" class="models.FactDeals" scope="prototype"/>
+    <bean id="factDealsIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
-    <bean id="factCaseProductRequest" class="models.FactCaseProductRequest"/>
-    <bean id="atomicLongFactCaseProductRequestKey" class="java.util.concurrent.atomic.AtomicLong">
-        <constructor-arg index="0" value="1"/>
+    <bean id="factCaseProductRequest" class="models.FactCaseProductRequest" scope="prototype"/>
+    <bean id="factCaseProductRequestIdGenerator" class="java.util.concurrent.atomic.AtomicLong">
+        <constructor-arg index="0" name="initialValue" value="1"/>
     </bean>
 
     <import resource="job-flow-config.xml"/>

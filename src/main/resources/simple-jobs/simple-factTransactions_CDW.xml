@@ -38,7 +38,6 @@
     <bean id="factTransactionsCDWWriter" class="writer.FactTransactions_CDWWriter" scope="step">
         <property name="sessionFactory" ref="sessionFactory"/>
         <property name="threadName" value="#{stepExecutionContext[threadName]}"/>
-        <property name="atomicLong" ref="atomicLongFactTransactions_CDWKey"/>
     </bean>
 
 </beans>

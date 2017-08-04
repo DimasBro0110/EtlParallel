@@ -33,6 +33,7 @@ public class FactSalaryProjectWriter implements ItemWriter<FactSalaryProject> {
         session.clear();
         transaction.commit();
         session.close();
+//        sessionFactory.close();
         LOGGER.log(Level.INFO, threadName + " " +
                 "[ BATCH WITH SIZE OF " + list.size() + " SENT TO TABLE FactSalaryProject]");
     }

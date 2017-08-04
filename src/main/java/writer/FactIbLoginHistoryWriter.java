@@ -30,11 +30,13 @@ public class FactIbLoginHistoryWriter implements ItemWriter<FactIBLoginHistory> 
         Transaction transaction = session.beginTransaction();
         list.forEach(entity -> {
             entity.setEntityId(atomicLongFactIbLoginHistoryKey.getAndIncrement());
+            session.save(entity);
         });
         session.flush();
         session.clear();
         transaction.commit();
         session.close();
+//        sessionFactory.close();
         LOGGER.log(Level.INFO, threadName + " " +
                 "BATCH WITH SIZE OF " + list.size() + " SENT TO TABLE FactIbLoginHistoryWriter");
     }

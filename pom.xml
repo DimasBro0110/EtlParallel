@@ -32,7 +32,7 @@
                         <configuration>
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.dimas.brosalin.Main</mainClass>
+                                    <mainClass>Main</mainClass>
                                 </transformer>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
@@ -49,6 +49,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>JBoss repository</id>
+            <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
 
     <dependencies>
 
@@ -103,7 +110,13 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.8.Final</version>
+            <version>4.1.10.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.2</version>
         </dependency>
 
         <dependency>

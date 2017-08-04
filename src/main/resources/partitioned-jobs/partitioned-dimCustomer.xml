@@ -8,7 +8,9 @@
     <bean id="partitionerDimCustomerByLines" class="partitioner.PartitionerByLines">
         <property name="batchSize" value="100000"/>
         <property name="pathToFile" value="/home-srv2/projects/SPBBank/input_data/raw_data/DimCustomer.csv"/>
+        <!--<property name="pathToFile" value="/Users/DmitriyBrosalin/TestFiles/work_data/DimCustomer.csv"/>-->
         <property name="tempDir" value="/home-srv2/dbrosalin/temp_dir"/>
+        <!--<property name="tempDir" value="/Users/DmitriyBrosalin/TestFiles/work_data/temp_dir"/>-->
     </bean>
 
     <bean id="taskExecutorDimCustomer" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
@@ -17,10 +19,10 @@
         <property name="queueCapacity" value="25"/>
     </bean>
 
-    <batch:job id="masterDimCustomerJob">
-        <batch:step id="masterStep">
+    <batch:job id="masterDimCustomerJob" job-repository="jobRepository">
+        <batch:step id="masterDimCustomerStep">
             <batch:partition step="slaveDimCustomerStep" partitioner="partitionerDimCustomerByLines">
-                <batch:handler task-executor="taskExecutorDimCustomer"/>
+                <batch:handler task-executor="taskExecutorDimCustomer" grid-size="10"/>
             </batch:partition>
         </batch:step>
     </batch:job>

@@ -120,4 +120,5 @@ public class FactAccount_Oper_CDW {
     public void setEntityId(long entityId) {
         this.entityId = entityId;
     }
+
 }
